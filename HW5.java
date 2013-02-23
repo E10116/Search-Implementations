@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
@@ -80,8 +79,6 @@ public class HW5
 
                 for(i=0; i<numConnects; i++)
                 {
-                    System.out.printf("\t  SLD: %3d - %s\n", current.getcity(i).getSLD(), current.getcity(i).getname());
-
                     if((lowestSLD == null) || (current.getcity(i).getSLD() < lowestSLD.getSLD()))
                     {
                         lowestSLD = current.getcity(i);
@@ -91,7 +88,7 @@ public class HW5
                 lowestSLD.camefrom = current;
                 current = lowestSLD;
                 lowestSLD = null;
-                System.out.printf("\t\tGoing to %s\n", current.getname());
+                System.out.printf("\t  Going to %s\n", current.getname());
                 stepNum++;
             }
         }
@@ -99,9 +96,69 @@ public class HW5
 
     public static void aStar(map Romania)
     {
-        System.out.println("A* Search Here.");
+        ArrayList<city> frontier = new ArrayList<city>();
+        ArrayList<city> explored = new ArrayList<city>();
+        boolean done = false;
+        int stepNum = 0;
+        int i = 0;
+        int numConnects = 0;
+        city current = null;
+        city next = null;
 
+        current = Romania.Arad;
+        current.depth = 0;      /* used for calculating total path cost of each city */
 
+        while(!done)
+        {
+            System.out.printf("Step %d: Expanding %s\n", stepNum, current.getname());
+
+            if(current.getname().equals("Bucharest"))
+            {
+                getPath(current);
+                System.out.printf("Total path cost: %d\n", current.depth);
+                System.out.println();
+                done = true;
+            }
+            else
+            {
+                numConnects = current.getconnections();
+
+                for(i=0; i<numConnects; i++)
+                {
+                    if(!explored.contains(current.getcity(i)))
+                    {
+                        current.getcity(i).depth = current.getdist(i) + current.depth;
+                        current.getcity(i).camefrom = current;
+                        frontier.add(current.getcity(i));
+                    }
+                }
+
+                explored.add(current);
+                current = getNextCity(frontier);
+                stepNum++;
+            }
+        }
+    }
+
+    public static city getNextCity(ArrayList<city> frontier)
+    {
+        city next = null;
+        city lowest = null;
+        int lowestIndex = 0;
+
+        for(int i=0; i<frontier.size(); i++)
+        {
+            if((lowest == null) || ((frontier.get(i).depth+frontier.get(i).getSLD()) < (lowest.depth+lowest.getSLD())))
+            {
+                lowest = frontier.get(i);
+                lowestIndex = i;
+            }
+        }
+
+        next = lowest;
+        frontier.remove(lowestIndex);
+
+        return next;     
     }
 
     public static void printMenu()
