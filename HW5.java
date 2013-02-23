@@ -48,11 +48,12 @@ public class HW5
     }
 
     public static void greedy(map Romania)
+    /* performs greedy search */
     {
         boolean done = false;
         city current = null;
         city lowestSLD = null;      /* most attractive heuristic city */
-        int stepNum = 0;            /* counter for steps; used to break infinite loop */
+        int stepNum = 0;
         int numConnects = 0;
         int i = 0;
 
@@ -68,7 +69,7 @@ public class HW5
                 System.out.println();
                 done = true;
             }
-            else if(stepNum == 30)
+            else if(stepNum == 30)   /* breaks infinite loop.  can't happen in this map, but better safe than sorry */
             {
                 System.out.printf("\nError: No solution found.\n\n");
                 done = true;
@@ -78,7 +79,7 @@ public class HW5
                 numConnects = current.getconnections();
 
                 for(i=0; i<numConnects; i++)
-                {
+                {                              /* h(n) check between current child node and lowest child node*/
                     if((lowestSLD == null) || (current.getcity(i).getSLD() < lowestSLD.getSLD()))
                     {
                         lowestSLD = current.getcity(i);
@@ -95,6 +96,7 @@ public class HW5
     }
 
     public static void aStar(map Romania)
+    /* performs A* search */
     {
         ArrayList<city> frontier = new ArrayList<city>();
         ArrayList<city> explored = new ArrayList<city>();
@@ -126,8 +128,10 @@ public class HW5
                 for(i=0; i<numConnects; i++)
                 {
                     if(!explored.contains(current.getcity(i)))
+                    /*    If in explored, node can't be reached faster, so no need to visit again.
+                     *    No check on frontier because a node can be on the frontier in multiple places. */
                     {
-                        current.getcity(i).depth = current.getdist(i) + current.depth;
+                        current.getcity(i).depth = current.depth + current.getdist(i); /* total path cost of parent + cost to reach child */
                         current.getcity(i).camefrom = current;
                         frontier.add(current.getcity(i));
                     }
@@ -147,7 +151,7 @@ public class HW5
         int lowestIndex = 0;
 
         for(int i=0; i<frontier.size(); i++)
-        {
+        {                                     /* if f(n) of current child is less than f(n) of lowest found thus far */
             if((lowest == null) || ((frontier.get(i).depth+frontier.get(i).getSLD()) < (lowest.depth+lowest.getSLD())))
             {
                 lowest = frontier.get(i);
