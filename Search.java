@@ -78,6 +78,51 @@ public class HW5
         }
     }
 
+    public static void breadth(map Romania)
+    /* performs breadth-first search */
+    {
+        Queue<city> frontier = new LinkedList<city>();
+        ArrayList<city> explored = new ArrayList<city>();
+        boolean done = false;
+        int stepNum = 0;
+        int i = 0;
+        int numConnects = 0;
+        city current;
+
+        current = Romania.Arad;
+
+        while(!done)
+        {
+            System.out.printf("Step %d: Expanding %s\n", stepNum, current.getname());
+            explored.add(current);
+
+            if(current.getname().equals("Bucharest"))
+            {
+                getPath(current);
+                System.out.println();
+                done = true;
+            }
+            else
+            {
+                numConnects = current.getconnections();
+
+                for(i=0; i<numConnects; i++)
+                {
+                    /* checks to see if child node exists in explored list or frontier queue */
+                    if(!explored.contains(current.getcity(i)) && !frontier.contains(current.getcity(i)))
+                    {
+                        current.getcity(i).camefrom = current;
+                        frontier.add(current.getcity(i));
+                        System.out.printf("\t   Pushing %s\n", current.getcity(i).getname());
+                    }
+                }
+
+                stepNum++;
+                current = frontier.remove();
+            }
+        }
+    }
+
     public static void greedy(map Romania)
     /* performs greedy search */
     {
