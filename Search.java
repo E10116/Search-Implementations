@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.InputMismatchException;
 
-public class HW5
+public class Search
 {
     public static void main(String[] args)
     {
