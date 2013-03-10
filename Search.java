@@ -168,6 +168,68 @@ public class HW5
         }
     }
 
+    public static boolean limitedDepth(map Romania, int limit)
+    /* performs depth-limited search using limit chosen by user, or from passed limit from IDDSearch */
+    {
+        Stack<city> frontier = new Stack<city>();
+        ArrayList<city> explored = new ArrayList<city>();
+        boolean done = false;
+        boolean found = false;
+        int stepNum = 0;
+        int i = 0;
+        int counter = 0;         /* keeps track of current level */
+        int depthLimit = limit;  /* provides maximum level to search */
+        int numConnects = 0;
+        city current;
+
+        current = Romania.Arad;
+        current.depth = 0;
+
+        while(!done)
+        {
+            System.out.printf("Step %d: Expanding %s\n", stepNum, current.getname());
+
+            if(current.getname().equals("Bucharest"))
+            {
+                getPath(current);
+                System.out.println();
+                found = true;
+                done = true;
+            }
+            else
+            {
+                numConnects = current.getconnections();
+
+                for(i=0; i<numConnects; i++)
+                {
+                    /* checks to see if child node exists in explored list or frontier stack and makes sure the max level is not exceeded */
+                    if(!explored.contains(current.getcity(i)) && !frontier.contains(current.getcity(i)) && (current.depth < depthLimit))
+                    {
+                        current.getcity(i).camefrom = current;
+                        current.getcity(i).depth = current.depth + 1;   /* increments level for each successive node */
+                        frontier.push(current.getcity(i));
+                        System.out.printf("\t   Pushing %s\n", current.getcity(i).getname());
+                    }
+                }
+
+                counter++;
+                stepNum++;
+                explored.add(current);
+
+                if(frontier.empty())
+                {
+                    done = true;
+                }
+                else
+                {
+                    current = frontier.pop();
+                }
+            }
+        }
+
+        return found;
+    }
+
     public static void greedy(map Romania)
     /* performs greedy search */
     {
