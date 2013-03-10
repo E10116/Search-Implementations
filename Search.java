@@ -20,6 +20,7 @@ public class Search
     {
         int choice = 9;
         boolean quit = false;
+        boolean found = false;
 
         while(!quit)
         {
@@ -50,7 +51,10 @@ public class Search
 
                          found = limitedDepth(Romania, choice);
 
-                         if(!found)  System.out.printf("\nNo solution found.\n\n");
+                         if(!found)
+                         {
+                             System.out.printf("\nNo solution found.\n\n");
+                         }
 
                          break;
                 case 4:
