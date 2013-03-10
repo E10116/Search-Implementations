@@ -230,6 +230,21 @@ public class HW5
         return found;
     }
 
+    public static void iterativeDeepening(map Romania)
+    /* makes repeated calls to depthLimited using increasing limits until solution is found */
+    {
+        int limit = 0;
+        boolean done = false;
+
+        while(!done)
+        {
+            limit++;
+            System.out.printf("\n****Limit of %d****\n", limit);
+
+            done = limitedDepth(Romania, limit);
+        }
+    }
+
     public static void greedy(map Romania)
     /* performs greedy search */
     {
