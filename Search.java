@@ -1,5 +1,8 @@
 import java.util.Scanner;
+import java.util.Queue;
+import java.util.Stack;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.InputMismatchException;
 
 public class HW5
@@ -28,11 +31,39 @@ public class HW5
             switch(choice)
             {
                 case 1:
+                         System.out.printf("Breadth-First Search\n");
+                         System.out.printf("####################\n");
+                         breadth(Romania);
+                         break;
+                case 2:
+                         System.out.printf("Depth-First Search\n");
+                         System.out.printf("####################\n");
+                         depth(Romania);
+                         break;
+                case 3:
+                         System.out.printf("Depth-Limited Search\n");
+                         System.out.printf("####################\n");
+
+                         System.out.printf("\nSelect limit for the search: ");
+                         choice = getChoice();
+                         System.out.println();
+
+                         found = limitedDepth(Romania, choice);
+
+                         if(!found)  System.out.printf("\nNo solution found.\n\n");
+
+                         break;
+                case 4:
+                         System.out.printf("Iterative-Deepening Depth-First Search\n");
+                         System.out.printf("######################################\n");
+                         iterativeDeepening(Romania);
+                         break;
+                case 5:
                         System.out.printf("Greedy Search\n");
                         System.out.printf("#############\n");
                         greedy(Romania);
                         break;
-                case 2:
+                case 6:
                         System.out.printf("A* Search\n");
                         System.out.printf("#########\n");
                         aStar(Romania);
@@ -168,8 +199,12 @@ public class HW5
     public static void printMenu()
     {
         System.out.printf("Select the type of search:\n");
-        System.out.printf("1. Greedy Search\n");
-        System.out.printf("2. A* Search\n");
+        System.out.printf("1. Breadth-first search\n");
+        System.out.printf("2. Depth-first search\n");
+        System.out.printf("3. Depth-limited search\n");
+        System.out.printf("4. Iterative-deepening depth-first\n");
+        System.out.printf("5. Greedy Search\n");
+        System.out.printf("6. A* Search\n");
         System.out.printf("0. Quit\n");
         System.out.printf("Make your selection:  ");
     }
