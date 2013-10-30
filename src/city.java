@@ -39,18 +39,19 @@ public class city
 	{
 		return numconnections;
 	}
+
 	public city getcity (int index)
 	{
 		return (city)nextcity.get(index);
 	}
+
 	public int getdist (int index)
 	{
-		return (int)distance.get(index);
+		return (Integer)distance.get(index);
 	}
+
 	public String getname()
 	{
 		return this.name;
 	}
-
 }
-
