@@ -9,14 +9,14 @@ public class Search
 {
     public static void main(String[] args)
     {
-        map Romania = new map();
+        Map Romania = new Map();
 
         System.out.println();
 
         loop(Romania);
     }
 
-    public static void loop(map Romania)
+    public static void loop(Map Romania)
     {
         int choice = 9;
         boolean quit = false;
@@ -82,25 +82,25 @@ public class Search
         }
     }
 
-    public static void breadth(map Romania)
+    public static void breadth(Map Romania)
     /* performs breadth-first search */
     {
-        Queue<city> frontier = new LinkedList<city>();
-        ArrayList<city> explored = new ArrayList<city>();
+        Queue<City> frontier = new LinkedList<City>();
+        ArrayList<City> explored = new ArrayList<City>();
         boolean done = false;
         int stepNum = 0;
         int i = 0;
         int numConnects = 0;
-        city current;
+        City current;
 
         current = Romania.Arad;
 
         while(!done)
         {
-            System.out.printf("Step %d: Expanding %s\n", stepNum, current.getname());
+            System.out.printf("Step %d: Expanding %s\n", stepNum, current.getName());
             explored.add(current);
 
-            if(current.getname().equals("Bucharest"))
+            if(current.getName().equals("Bucharest"))
             {
                 getPath(current);
                 System.out.println();
@@ -108,16 +108,16 @@ public class Search
             }
             else
             {
-                numConnects = current.getconnections();
+                numConnects = current.getConnections();
 
                 for(i=0; i<numConnects; i++)
                 {
                     /* checks to see if child node exists in explored list or frontier queue */
-                    if(!explored.contains(current.getcity(i)) && !frontier.contains(current.getcity(i)))
+                    if(!explored.contains(current.getCity(i)) && !frontier.contains(current.getCity(i)))
                     {
-                        current.getcity(i).camefrom = current;
-                        frontier.add(current.getcity(i));
-                        System.out.printf("\t   Pushing %s\n", current.getcity(i).getname());
+                        current.getCity(i).cameFrom = current;
+                        frontier.add(current.getCity(i));
+                        System.out.printf("\t   Pushing %s\n", current.getCity(i).getName());
                     }
                 }
 
@@ -127,24 +127,24 @@ public class Search
         }
     }
 
-    public static void depth(map Romania)
+    public static void depth(Map Romania)
     /* performs depth-first search */
     {
-        Stack<city> frontier = new Stack<city>();
-        ArrayList<city> explored = new ArrayList<city>();
+        Stack<City> frontier = new Stack<City>();
+        ArrayList<City> explored = new ArrayList<City>();
         boolean done = false;
         int stepNum = 0;
         int i = 0;
         int numConnects = 0;
-        city current;
+        City current;
 
         current = Romania.Arad;
 
         while(!done)
         {
-            System.out.printf("Step %d: Expanding %s\n", stepNum, current.getname());
+            System.out.printf("Step %d: Expanding %s\n", stepNum, current.getName());
 
-            if(current.getname().equals("Bucharest"))
+            if(current.getName().equals("Bucharest"))
             {
                 getPath(current);
                 System.out.println();
@@ -152,16 +152,16 @@ public class Search
             }
             else
             {
-                numConnects = current.getconnections();
+                numConnects = current.getConnections();
 
                 for(i=0; i<numConnects; i++)
                 {
                     /* checks to see if child node exists in explored list or frontier stack*/
-                    if(!explored.contains(current.getcity(i)) && !frontier.contains(current.getcity(i)))
+                    if(!explored.contains(current.getCity(i)) && !frontier.contains(current.getCity(i)))
                     {
-                        current.getcity(i).camefrom = current;
-                        frontier.push(current.getcity(i));
-                        System.out.printf("\t   Pushing %s\n", current.getcity(i).getname());
+                        current.getCity(i).cameFrom = current;
+                        frontier.push(current.getCity(i));
+                        System.out.printf("\t   Pushing %s\n", current.getCity(i).getName());
                     }
                 }
 
@@ -172,11 +172,11 @@ public class Search
         }
     }
 
-    public static boolean limitedDepth(map Romania, int limit)
+    public static boolean limitedDepth(Map Romania, int limit)
     /* performs depth-limited search using limit chosen by user, or from passed limit from IDDSearch */
     {
-        Stack<city> frontier = new Stack<city>();
-        ArrayList<city> explored = new ArrayList<city>();
+        Stack<City> frontier = new Stack<City>();
+        ArrayList<City> explored = new ArrayList<City>();
         boolean done = false;
         boolean found = false;
         int stepNum = 0;
@@ -184,16 +184,16 @@ public class Search
         int counter = 0;         /* keeps track of current level */
         int depthLimit = limit;  /* provides maximum level to search */
         int numConnects = 0;
-        city current;
+        City current;
 
         current = Romania.Arad;
         current.depth = 0;
 
         while(!done)
         {
-            System.out.printf("Step %d: Expanding %s\n", stepNum, current.getname());
+            System.out.printf("Step %d: Expanding %s\n", stepNum, current.getName());
 
-            if(current.getname().equals("Bucharest"))
+            if(current.getName().equals("Bucharest"))
             {
                 getPath(current);
                 System.out.println();
@@ -202,17 +202,17 @@ public class Search
             }
             else
             {
-                numConnects = current.getconnections();
+                numConnects = current.getConnections();
 
                 for(i=0; i<numConnects; i++)
                 {
                     /* checks to see if child node exists in explored list or frontier stack and makes sure the max level is not exceeded */
-                    if(!explored.contains(current.getcity(i)) && !frontier.contains(current.getcity(i)) && (current.depth < depthLimit))
+                    if(!explored.contains(current.getCity(i)) && !frontier.contains(current.getCity(i)) && (current.depth < depthLimit))
                     {
-                        current.getcity(i).camefrom = current;
-                        current.getcity(i).depth = current.depth + 1;   /* increments level for each successive node */
-                        frontier.push(current.getcity(i));
-                        System.out.printf("\t   Pushing %s\n", current.getcity(i).getname());
+                        current.getCity(i).cameFrom = current;
+                        current.getCity(i).depth = current.depth + 1;   /* increments level for each successive node */
+                        frontier.push(current.getCity(i));
+                        System.out.printf("\t   Pushing %s\n", current.getCity(i).getName());
                     }
                 }
 
@@ -234,7 +234,7 @@ public class Search
         return found;
     }
 
-    public static void iterativeDeepening(map Romania)
+    public static void iterativeDeepening(Map Romania)
     /* makes repeated calls to depthLimited using increasing limits until solution is found */
     {
         int limit = 0;
@@ -249,12 +249,12 @@ public class Search
         }
     }
 
-    public static void greedy(map Romania)
+    public static void greedy(Map Romania)
     /* performs greedy search */
     {
         boolean done = false;
-        city current = null;
-        city lowestSLD = null;      /* most attractive heuristic city */
+        City current = null;
+        City lowestSLD = null;      /* most attractive heuristic City */
         int stepNum = 0;
         int numConnects = 0;
         int i = 0;
@@ -263,60 +263,60 @@ public class Search
 
         while(!done)
         {
-            System.out.printf("Step %d: Expanding %s\n", stepNum, current.getname());
+            System.out.printf("Step %d: Expanding %s\n", stepNum, current.getName());
 
-            if(current.getname().equals("Bucharest"))
+            if(current.getName().equals("Bucharest"))
             {
                 getPath(current);
                 System.out.println();
                 done = true;
             }
-            else if(stepNum == 30)   /* breaks infinite loop.  can't happen in this map, but better safe than sorry */
+            else if(stepNum == 30)   /* breaks infinite loop.  can't happen in this Map, but better safe than sorry */
             {
                 System.out.printf("\nError: No solution found.\n\n");
                 done = true;
             }
             else
             {
-                numConnects = current.getconnections();
+                numConnects = current.getConnections();
 
                 for(i=0; i<numConnects; i++)
                 {                              /* h(n) check between current child node and lowest child node*/
-                    if((lowestSLD == null) || (current.getcity(i).getSLD() < lowestSLD.getSLD()))
+                    if((lowestSLD == null) || (current.getCity(i).getSLD() < lowestSLD.getSLD()))
                     {
-                        lowestSLD = current.getcity(i);
+                        lowestSLD = current.getCity(i);
                     }
                 }
 
-                lowestSLD.camefrom = current;
+                lowestSLD.cameFrom = current;
                 current = lowestSLD;
                 lowestSLD = null;
-                System.out.printf("\t  Going to %s\n", current.getname());
+                System.out.printf("\t  Going to %s\n", current.getName());
                 stepNum++;
             }
         }
     }
 
-    public static void aStar(map Romania)
+    public static void aStar(Map Romania)
     /* performs A* search */
     {
-        ArrayList<city> frontier = new ArrayList<city>();
-        ArrayList<city> explored = new ArrayList<city>();
+        ArrayList<City> frontier = new ArrayList<City>();
+        ArrayList<City> explored = new ArrayList<City>();
         boolean done = false;
         int stepNum = 0;
         int i = 0;
         int numConnects = 0;
-        city current = null;
-        city next = null;
+        City current = null;
+        City next = null;
 
         current = Romania.Arad;
-        current.depth = 0;      /* used for calculating total path cost of each city */
+        current.depth = 0;      /* used for calculating total path cost of each City */
 
         while(!done)
         {
-            System.out.printf("Step %d: Expanding %s\n", stepNum, current.getname());
+            System.out.printf("Step %d: Expanding %s\n", stepNum, current.getName());
 
-            if(current.getname().equals("Bucharest"))
+            if(current.getName().equals("Bucharest"))
             {
                 getPath(current);
                 System.out.printf("Total path cost: %d\n", current.depth);
@@ -325,17 +325,17 @@ public class Search
             }
             else
             {
-                numConnects = current.getconnections();
+                numConnects = current.getConnections();
 
                 for(i=0; i<numConnects; i++)
                 {
-                    if(!explored.contains(current.getcity(i)))
+                    if(!explored.contains(current.getCity(i)))
                     /*    If in explored, node can't be reached faster, so no need to visit again.
                      *    No check on frontier because a node can be on the frontier in multiple places. */
                     {
-                        current.getcity(i).depth = current.depth + current.getdist(i); /* total path cost of parent + cost to reach child */
-                        current.getcity(i).camefrom = current;
-                        frontier.add(current.getcity(i));
+                        current.getCity(i).depth = current.depth + current.getDist(i); /* total path cost of parent + cost to reach child */
+                        current.getCity(i).cameFrom = current;
+                        frontier.add(current.getCity(i));
                     }
                 }
 
@@ -346,10 +346,10 @@ public class Search
         }
     }
 
-    public static city getNextCity(ArrayList<city> frontier)
+    public static City getNextCity(ArrayList<City> frontier)
     {
-        city next = null;
-        city lowest = null;
+        City next = null;
+        City lowest = null;
         int lowestIndex = 0;
 
         for(int i=0; i<frontier.size(); i++)
@@ -398,24 +398,24 @@ public class Search
         return choice;
     }
 
-    public static void getPath(city current)
+    public static void getPath(City current)
     /* prints pathway from Arad to Bucharest by working backwards from Bucharest*/
     {
         boolean done = false;
         String path = "Bucharest";
-        current = current.camefrom;    /* starts at city before Bucharest  */
+        current = current.cameFrom;    /* starts at City before Bucharest  */
 
         while(!done)
         {
-            if(current.getname().equals("Arad"))
+            if(current.getName().equals("Arad"))
             {
                 System.out.printf("\nPath: Arad => %s\n", path);
                 done = true;
             }
             else
             {
-                path = current.getname() + " => " + path;
-                current = current.camefrom;
+                path = current.getName() + " => " + path;
+                current = current.cameFrom;
             }
         }
     }
