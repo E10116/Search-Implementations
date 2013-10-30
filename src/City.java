@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
 
-public class city
+public class City
 {
 	private String name;
-	private int numconnections = 0;
-	private ArrayList nextcity = new ArrayList();
+	private int numConnections = 0;
+	private ArrayList nextCity = new ArrayList();
 	private ArrayList distance = new ArrayList();
 	// Straight line distance to Bucharest
 	private int SLD;
@@ -13,20 +13,20 @@ public class city
 
 	// Hacks to make searching meaningful and illustrative. See source.
 	public int depth;
-	public city camefrom;
+	public City cameFrom;
 
 
-	public city (String n, int s)
+	public City (String n, int s)
 	{
 		this.name = n;
 		this.SLD = s;
 	}
 
 	@SuppressWarnings ("unchecked") 
-	public void addconnection (city conn, int dist)
+	public void addConnection (City conn, int dist)
 	{
-		numconnections++;
-		nextcity.add (conn);
+		numConnections++;
+		nextCity.add (conn);
 		distance.add (dist);
 	}
 
@@ -35,22 +35,22 @@ public class city
 		return this.SLD;
 	}
 
-	public int getconnections()
+	public int getConnections()
 	{
-		return numconnections;
+		return numConnections;
 	}
 
-	public city getcity (int index)
+	public City getCity (int index)
 	{
-		return (city)nextcity.get(index);
+		return (City)nextCity.get(index);
 	}
 
-	public int getdist (int index)
+	public int getDist (int index)
 	{
 		return (Integer)distance.get(index);
 	}
 
-	public String getname()
+	public String getName()
 	{
 		return this.name;
 	}
