@@ -1,9 +1,10 @@
-import java.util.Scanner;
-import java.util.Queue;
-import java.util.Stack;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.InputMismatchException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Scanner;
+import java.util.Stack;
 
 public class Search
 {
@@ -32,18 +33,15 @@ public class Search
             switch(choice)
             {
                 case 1:
-                         System.out.printf("Breadth-First Search\n");
-                         System.out.printf("####################\n");
+                         System.out.printf("Breadth-First Search\n####################\n");
                          breadth(Romania);
                          break;
                 case 2:
-                         System.out.printf("Depth-First Search\n");
-                         System.out.printf("####################\n");
+                         System.out.printf("Depth-First Search\n####################\n");
                          depth(Romania);
                          break;
                 case 3:
-                         System.out.printf("Depth-Limited Search\n");
-                         System.out.printf("####################\n");
+                         System.out.printf("Depth-Limited Search\n####################\n");
 
                          System.out.printf("\nSelect limit for the search: ");
                          choice = getChoice();
@@ -63,13 +61,11 @@ public class Search
                          iterativeDeepening(Romania);
                          break;
                 case 5:
-                        System.out.printf("Greedy Search\n");
-                        System.out.printf("#############\n");
+                        System.out.printf("Greedy Search\n#############\n");
                         greedy(Romania);
                         break;
                 case 6:
-                        System.out.printf("A* Search\n");
-                        System.out.printf("#########\n");
+                        System.out.printf("A* Search\n#########\n");
                         aStar(Romania);
                         break;
                 case 0:
@@ -86,7 +82,7 @@ public class Search
     /* performs breadth-first search */
     {
         Queue<City> frontier = new LinkedList<City>();
-        ArrayList<City> explored = new ArrayList<City>();
+        List<City> explored = new ArrayList<City>();
         boolean done = false;
         int stepNum = 0;
         int i = 0;
@@ -131,7 +127,7 @@ public class Search
     /* performs depth-first search */
     {
         Stack<City> frontier = new Stack<City>();
-        ArrayList<City> explored = new ArrayList<City>();
+        List<City> explored = new ArrayList<City>();
         boolean done = false;
         int stepNum = 0;
         int i = 0;
@@ -176,7 +172,7 @@ public class Search
     /* performs depth-limited search using limit chosen by user, or from passed limit from IDDSearch */
     {
         Stack<City> frontier = new Stack<City>();
-        ArrayList<City> explored = new ArrayList<City>();
+        List<City> explored = new ArrayList<City>();
         boolean done = false;
         boolean found = false;
         int stepNum = 0;
@@ -300,8 +296,8 @@ public class Search
     public static void aStar(Map Romania)
     /* performs A* search */
     {
-        ArrayList<City> frontier = new ArrayList<City>();
-        ArrayList<City> explored = new ArrayList<City>();
+        List<City> frontier = new ArrayList<City>();
+        List<City> explored = new ArrayList<City>();
         boolean done = false;
         int stepNum = 0;
         int i = 0;
@@ -346,7 +342,7 @@ public class Search
         }
     }
 
-    public static City getNextCity(ArrayList<City> frontier)
+    public static City getNextCity(List<City> frontier)
     {
         City next = null;
         City lowest = null;
@@ -394,7 +390,6 @@ public class Search
         {
             choice = 9;
         }
-
         return choice;
     }
 
