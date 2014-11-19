@@ -396,20 +396,22 @@ public class Search
     public static void getPath(City current)
     /* prints pathway from Arad to Bucharest by working backwards from Bucharest*/
     {
+        StringBuilder sb = new StringBuilder();
         boolean done = false;
-        String path = "Bucharest";
         current = current.cameFrom;    /* starts at City before Bucharest  */
+        sb.append("Bucharest");
 
         while(!done)
         {
             if(current.getName().equals("Arad"))
             {
-                System.out.printf("\nPath: Arad => %s\n", path);
+                sb.insert(0, "\nPath: Arad => ");
+                System.out.println(sb.toString());
                 done = true;
             }
             else
             {
-                path = current.getName() + " => " + path;
+                sb.insert(0, current.getName() + " => ");
                 current = current.cameFrom;
             }
         }
