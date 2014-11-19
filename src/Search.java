@@ -19,6 +19,7 @@ public class Search
 
     public static void loop(Map Romania)
     {
+        Scanner myscanner = new Scanner(System.in);
         int choice = 9;
         boolean quit = false;
         boolean found = false;
@@ -27,7 +28,7 @@ public class Search
         {
             printMenu();
 
-            choice = getChoice();
+            choice = getChoice(myscanner);
             System.out.println();
 
             switch(choice)
@@ -44,7 +45,7 @@ public class Search
                          System.out.printf("Depth-Limited Search\n####################\n");
 
                          System.out.printf("\nSelect limit for the search: ");
-                         choice = getChoice();
+                         choice = getChoice(myscanner);
                          System.out.println();
 
                          found = limitedDepth(Romania, choice);
@@ -76,6 +77,7 @@ public class Search
                         break;
             }
         }
+        myscanner.close();
     }
 
     public static void breadth(Map Romania)
@@ -376,10 +378,9 @@ public class Search
         System.out.printf("Make your selection:  ");
     }
 
-    public static int getChoice()
+    public static int getChoice(Scanner myscanner)
     /* gets user input for choice in form of integer; returns 9 if input mismatch */
     {
-        Scanner myscanner = new Scanner(System.in);
         int choice = 9;
 
         try
