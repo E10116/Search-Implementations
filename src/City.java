@@ -9,7 +9,7 @@ public class City
     private List<Integer> distance = new ArrayList<Integer>();
     private int SLD; // Straight line distance to Bucharest
 
-    // Hacks to make searching meaningful and illustrative.
+    // Hacks to make searching meaningful and illustrative. 
     public int depth;
     public City cameFrom;
 

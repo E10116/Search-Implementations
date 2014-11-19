@@ -26,7 +26,7 @@ public class Map
     City Iasi      = new City("Iasi", 226);
     City Neamt     = new City("Neamt", 234);
 
-    /* Rough roadmap of Romania */
+    /* Rough roadmap of Romania  */
     public Map()
     {
         Oradea.addConnection(Zerind, 71);

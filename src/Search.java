@@ -11,7 +11,7 @@ public class Search
     public static void main(String[] args)
     {
         Map Romania = new Map();
-
+ 
         System.out.println();
 
         loop(Romania);
