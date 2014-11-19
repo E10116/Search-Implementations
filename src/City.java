@@ -1,57 +1,53 @@
 import java.util.ArrayList;
-
+import java.util.List;
 
 public class City
 {
-	private String name;
-	private int numConnections = 0;
-	private ArrayList nextCity = new ArrayList();
-	private ArrayList distance = new ArrayList();
-	// Straight line distance to Bucharest
-	private int SLD;
+    private String name;
+    private int numConnections = 0;
+    private List<City> nextCity = new ArrayList<City>();
+    private List<Integer> distance = new ArrayList<Integer>();
+    private int SLD; // Straight line distance to Bucharest
 
+    // Hacks to make searching meaningful and illustrative.
+    public int depth;
+    public City cameFrom;
 
-	// Hacks to make searching meaningful and illustrative. See source.
-	public int depth;
-	public City cameFrom;
+    public City(String n, int s)
+    {
+        this.name = n;
+        this.SLD = s;
+    }
 
+    public void addConnection(City conn, int dist)
+    {
+        numConnections++;
+        nextCity.add(conn);
+        distance.add(dist);
+    }
 
-	public City (String n, int s)
-	{
-		this.name = n;
-		this.SLD = s;
-	}
+    public int getSLD()
+    {
+        return this.SLD;
+    }
 
-	@SuppressWarnings ("unchecked") 
-	public void addConnection (City conn, int dist)
-	{
-		numConnections++;
-		nextCity.add (conn);
-		distance.add (dist);
-	}
+    public int getConnections()
+    {
+        return numConnections;
+    }
 
-	public int getSLD()
-	{
-		return this.SLD;
-	}
+    public City getCity(int index)
+    {
+        return (City)nextCity.get(index);
+    }
 
-	public int getConnections()
-	{
-		return numConnections;
-	}
+    public int getDist(int index)
+    {
+        return (Integer)distance.get(index);
+    }
 
-	public City getCity (int index)
-	{
-		return (City)nextCity.get(index);
-	}
-
-	public int getDist (int index)
-	{
-		return (Integer)distance.get(index);
-	}
-
-	public String getName()
-	{
-		return this.name;
-	}
+    public String getName()
+    {
+        return this.name;
+    }
 }
